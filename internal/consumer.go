@@ -47,6 +47,10 @@ func newConsumer(kafkaConfig *kafka.Config) *kafkaConsumer {
 		}
 	}
 
+	if kafkaConfig.OverrideReaderConfig != nil {
+		readerConfig = kafkaConfig.OverrideReaderConfig(readerConfig)
+	}
+
 	return &kafkaConsumer{
 		consumer: segmentio.NewReader(readerConfig),
 		cfg:      kafkaConfig,

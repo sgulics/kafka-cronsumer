@@ -19,14 +19,17 @@ const (
 	FixedBackOffStrategy       = "fixed"
 )
 
+type OverrideReaderConfig func(readerConfig segmentio.ReaderConfig) segmentio.ReaderConfig
+
 type Config struct {
-	Brokers  []string         `yaml:"brokers"`
-	Consumer ConsumerConfig   `yaml:"consumer"`
-	Producer ProducerConfig   `yaml:"producer"`
-	SASL     SASLConfig       `yaml:"sasl"`
-	LogLevel logger.Level     `yaml:"logLevel"`
-	Logger   logger.Interface `yaml:"-"`
-	ClientID string           `yaml:"clientId"`
+	Brokers              []string             `yaml:"brokers"`
+	Consumer             ConsumerConfig       `yaml:"consumer"`
+	Producer             ProducerConfig       `yaml:"producer"`
+	SASL                 SASLConfig           `yaml:"sasl"`
+	LogLevel             logger.Level         `yaml:"logLevel"`
+	Logger               logger.Interface     `yaml:"-"`
+	ClientID             string               `yaml:"clientId"`
+	OverrideReaderConfig OverrideReaderConfig `yaml:"-"`
 }
 
 type SASLConfig struct {
